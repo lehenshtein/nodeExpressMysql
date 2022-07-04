@@ -1,6 +1,9 @@
+const schema = require('./graphql/schema')
+const resolver = require('./graphql/resolver')
 const express = require('express')
 const path = require('path')
-const todoRoutes = require('./routes/todo')
+// const todoRoutes = require('./routes/todo')
+const {graphqlHTTP} = require('express-graphql')
 const sequelize = require('./utils/database')
 
 const app = express();
@@ -10,8 +13,13 @@ console.log(publicPath);
 
 app.use(express.static(publicPath));
 app.use(express.json()); //this middleware parses all json requests
+app.use(graphqlHTTP({ //graphql middleware
+    schema: schema,
+    rootValue: resolver,
+    graphiql: true
+}))
 //routes
-app.use('/api/todo', todoRoutes);
+// app.use('/api/todo', todoRoutes); //grphql changes
 
 app.use((req, res, next) => {
     res.sendFile(path.join(publicPath, 'index.html'))
