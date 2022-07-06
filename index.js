@@ -2,7 +2,7 @@ const express = require('express')
 const helmet = require("helmet")
 const path = require('path')
 const todoRoutes = require('./routes/todo')
-const sequelize = require('./utils/database')
+// const sequelize = require('./utils/database')
 const compression = require('compression')
 
 const app = express();
@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 
 async function start() {
     try {
-        await sequelize.sync();
+        // await sequelize.sync();
         // await sequelize.sync({force: true});
         console.log('Connection has been established successfully.');
         console.log('http://localhost:' + PORT);
