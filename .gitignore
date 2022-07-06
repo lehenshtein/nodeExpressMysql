@@ -1,4 +1,5 @@
 /creds.js
+/creds.*.js
 # Logs
 logs
 *.log

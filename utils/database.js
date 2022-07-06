@@ -1,13 +1,18 @@
-const pass = require('../creds');
+let creds;
+if (process.env.NODE_ENV === 'production') {
+  creds = require('../creds');
+} else {
+  creds = require('../creds.dev');
+}
 
 const Sequelize = require('sequelize');
 
-const DB_NAME = 'node-todo';
-const USER_NAME = 'root';
-const PASSWORD = pass;//first ph q no extra
+const DB_NAME = creds.DB_NAME;
+const USER_NAME = creds.USER_NAME;
+const PASSWORD = creds.PASSWORD;//first ph q no extra
 
 const sequelize = new Sequelize(DB_NAME, USER_NAME, PASSWORD, {
-    host: 'localhost',
+    host: creds.host,
     dialect: 'mysql'
 });
 
